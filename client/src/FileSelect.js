@@ -50,7 +50,8 @@ class FileSelect extends React.Component {
                 <Header.Content>ToB Parser</Header.Content>
             </Header>
             <Grid centered columns={2} ui grid>
-                <GridRow><small><i>Select your raid tracker log file found at: C:\Users\[WINDOWS USER]\.runelite\raid-data tracker\[RS LOGIN]\tob\raid_tracker_data.log</i></small></GridRow>
+                <GridRow><small><i>Select your raid tracker log file found at: C:\Users\[WINDOWS
+                    USER]\.runelite\raid-data tracker\[RS LOGIN]\tob\raid_tracker_data.log</i></small></GridRow>
                 <GridRow>
                     <GridColumn textAlign={"right"}>
                         <Input placeholder='Enter RSN...' value={this.state.rsn} onChange={this.setRSN}/>
@@ -72,7 +73,7 @@ class FileSelect extends React.Component {
                         </Button>
                     </GridColumn>
                 </GridRow>
-              {this.state.parsedData && <Summary summary={this.state.parsedData}/>}
+                {this.state.parsedData && <Summary summary={this.state.parsedData}/>}
             </Grid>
             <Grid centered columns={16}>
                 <GridRow>

@@ -40,61 +40,61 @@ class ResultTable extends Component {
         return data;
     };
     onMyLootChange = (event, data) => {
-      let filteredData = this.props.tableData;
-      if(data.checked) {
-        filteredData = this.props.tableData.filter(r => {
-          return r.itemReceiver.toLowerCase() === this.props.rsn.toLowerCase()
-        });
-      }
-      this.setState({myLoot: data.checked, currentData:filteredData})
+        let filteredData = this.props.tableData;
+        if (data.checked) {
+            filteredData = this.props.tableData.filter(r => {
+                return r.itemReceiver.toLowerCase() === this.props.rsn.toLowerCase()
+            });
+        }
+        this.setState({myLoot: data.checked, currentData: filteredData})
     };
 
     render() {
         const {column, direction} = this.state;
         return (
             <>
-              <br/>
-              <Form>
-                <Form.Field>
-                  <Checkbox checked={this.state.myLoot} toggle label='My loot' onChange={this.onMyLootChange}/>
-                </Form.Field>
-              </Form>
-            <Table sortable celled fixed unstackable>
-                <Table.Header>
-                    <Table.Row>
-                        <Table.HeaderCell
-                            sorted={column === 'raidNumber' ? direction.raidNumber : null}
-                            onClick={() => this.toggleDirection('raidNumber')}
-                        >
-                            <Icon name="hashtag"/>Raid Number
-                        </Table.HeaderCell>
-                        <Table.HeaderCell
-                            sorted={column === 'item' ? direction.item : null}
-                            onClick={() => this.toggleDirection('item')}
-                        >
-                            <Icon name="gift"/>Item
-                        </Table.HeaderCell>
-                        <Table.HeaderCell
-                            sorted={column === 'itemReceiver' ? direction.itemReceiver : null}
-                            onClick={() => this.toggleDirection('itemReceiver')}
-                        >
-                            <Icon name="user"/>Item Receiver
-                        </Table.HeaderCell>
-                    </Table.Row>
-                </Table.Header>
-                <Table.Body styles={{'max-height': '85vh'}}>
-                    {_.map(
-                        this.getSortedRanking(this.state.currentData, column, direction[column]),
-                        ({raidNumber, item, itemReceiver}) => (
-                            <Table.Row key={raidNumber}>
-                                <Table.Cell>{raidNumber}</Table.Cell>
-                                <Table.Cell>{item}</Table.Cell>
-                                <Table.Cell>{itemReceiver}</Table.Cell>
-                            </Table.Row>
-                        )
-                    )}
-                </Table.Body>
-            </Table>
+                <br/>
+                <Form>
+                    <Form.Field>
+                        <Checkbox checked={this.state.myLoot} toggle label='My loot' onChange={this.onMyLootChange}/>
+                    </Form.Field>
+                </Form>
+                <Table sortable celled fixed unstackable>
+                    <Table.Header>
+                        <Table.Row>
+                            <Table.HeaderCell
+                                sorted={column === 'raidNumber' ? direction.raidNumber : null}
+                                onClick={() => this.toggleDirection('raidNumber')}
+                            >
+                                <Icon name="hashtag"/>Raid Number
+                            </Table.HeaderCell>
+                            <Table.HeaderCell
+                                sorted={column === 'item' ? direction.item : null}
+                                onClick={() => this.toggleDirection('item')}
+                            >
+                                <Icon name="gift"/>Item
+                            </Table.HeaderCell>
+                            <Table.HeaderCell
+                                sorted={column === 'itemReceiver' ? direction.itemReceiver : null}
+                                onClick={() => this.toggleDirection('itemReceiver')}
+                            >
+                                <Icon name="user"/>Item Receiver
+                            </Table.HeaderCell>
+                        </Table.Row>
+                    </Table.Header>
+                    <Table.Body styles={{'max-height': '85vh'}}>
+                        {_.map(
+                            this.getSortedRanking(this.state.currentData, column, direction[column]),
+                            ({raidNumber, item, itemReceiver}) => (
+                                <Table.Row key={raidNumber}>
+                                    <Table.Cell>{raidNumber}</Table.Cell>
+                                    <Table.Cell>{item}</Table.Cell>
+                                    <Table.Cell>{itemReceiver}</Table.Cell>
+                                </Table.Row>
+                            )
+                        )}
+                    </Table.Body>
+                </Table>
             </>
         );
     }
