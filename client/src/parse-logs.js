@@ -8,14 +8,18 @@ const parseLogs = (logs) => {
   return JSON.parse(logs);
 };
 
-// const getMyDrops = (logs) => {
-//
-//   data.forEach(d => {
-//     i++;
-//     if(d.specialLootReceiver == "")
-//       console.log(i + " " + d.specialLoot)
-//   });
-// }
+const getMyDrops = (logs, playerName) => {
+  let lootDrops = [];
+  let i = 1;
+
+  logs.forEach(d => {
+    if(d.specialLootReceiver) {
+      lootDrops.push({raidNumber:i, item:d.specialLoot, itemReceiver:d.specialLootReceiver})
+    }
+    i++
+  });
+  return lootDrops
+};
 
 const getLogData = (logs, playerName) => {
   let parsedLogs = parseLogs(logs);
@@ -69,14 +73,16 @@ const getLogData = (logs, playerName) => {
       averageDeaths: (playerDeaths[key] / playerRaids[key]).toFixed(2)
     })
   }
-  console.log(parsedLogs);
+
   return {
+    loot: getMyDrops(parsedLogs, playerName),
     totalRaids: parsedLogs.length,
     deaths: myDeaths,
     averageDeaths: (myDeaths/parsedLogs.length).toFixed(2),
     otherPlayerDeaths: otherDeaths,
     otherPlayers: players}
 };
+
 
 
 module.exports.getLogData = getLogData;

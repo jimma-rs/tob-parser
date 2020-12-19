@@ -1,9 +1,10 @@
 import React from 'react';
 import {InputFile} from 'semantic-ui-react-input-file'
 import {getLogData} from "./parse-logs";
-import {Button, Grid, GridColumn, GridRow, Header, Icon, Input} from "semantic-ui-react";
+import {Button, Grid, GridColumn, GridRow, Header, Icon, Input, Tab} from "semantic-ui-react";
 import ResultTable from "./ResultTable";
 import Summary from "./Summary";
+import LootTable from "./LootTable";
 
 class FileSelect extends React.Component {
   constructor(props) {
@@ -38,7 +39,12 @@ class FileSelect extends React.Component {
 
   render() {
     let buttonProps = {disabled: !this.state.rsn};
+    const panes = [
+      { menuItem: 'Teammates', render: () => <ResultTable tableData={this.state.parsedData.otherPlayers}/> },
+      { menuItem: 'Loot', render: () => <LootTable tableData={this.state.parsedData.loot} rsn={this.state.rsn}/> },
+    ]
 
+    const TabExampleBasic = () => <Tab panes={panes} />
     return (<>
       <Header as='h2' icon textAlign='center'>
         <Icon name='cogs' circular/>
@@ -66,8 +72,13 @@ class FileSelect extends React.Component {
             </Button>
           </GridColumn>
         </GridRow>
-        {this.state.parsedData && <Summary summary={this.state.parsedData}/>}
-        {this.state.parsedData && <ResultTable tableData={this.state.parsedData.otherPlayers}/>}
+      </Grid>
+      <Grid centered columns={16}>
+        <GridRow>
+          <GridColumn width={14}>
+        { this.state.parsedData &&  <Tab panes={panes} />}
+          </GridColumn>
+        </GridRow>
       </Grid>
     </>)
   }
