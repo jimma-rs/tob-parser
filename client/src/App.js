@@ -1,26 +1,19 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './App.css';
-import axios from 'axios'
+import FileSelect from "./FileSelect";
+import $ from 'jquery';
+
+window.jQuery = $;
+window.$ = $;
+global.jQuery = $;
 
 class App extends Component {
-  state = {
-    response: {}
-  };
-
-  componentDidMount() {
-    axios.get('/api/v1/say-something').then((res) => {
-      const response = res.data;
-      this.setState({response});
-    });
-  }
-
   render() {
     return (
       <div className="App">
-      <h1>Hello this is a new feature!</h1>
-    <h1>{this.state.response.body}</h1>
-    </div>
-  );
+        <FileSelect/>
+      </div>
+    );
   }
 }
 
