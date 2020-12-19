@@ -44,13 +44,13 @@ class FileSelect extends React.Component {
             {menuItem: 'Loot', render: () => <LootTable tableData={this.state.parsedData.loot} rsn={this.state.rsn}/>},
         ]
 
-        const TabExampleBasic = () => <Tab panes={panes}/>
         return (<>
             <Header as='h2' icon textAlign='center'>
                 <Icon name='cogs' circular/>
                 <Header.Content>ToB Parser</Header.Content>
             </Header>
             <Grid centered columns={2} ui grid>
+                <GridRow><small><i>Select your raid tracker log file found at: C:\Users\[WINDOWS USER]\.runelite\raid-data tracker\[RS LOGIN]\tob\raid_tracker_data.log</i></small></GridRow>
                 <GridRow>
                     <GridColumn textAlign={"right"}>
                         <Input placeholder='Enter RSN...' value={this.state.rsn} onChange={this.setRSN}/>
