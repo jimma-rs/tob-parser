@@ -20,8 +20,9 @@ class FileSelect extends React.Component {
     }
 
     resetState(event) {
-        this.setState({selectedFileName: 'None', rsn: '', parsedData: undefined, selectedFile: undefined,});
-        this.forceUpdate()
+        window.location.reload();
+        // this.setState({selectedFileName: 'None', rsn: '', parsedData: undefined, selectedFile: undefined,});
+        // this.forceUpdate()
     }
 
     uploadFile(event) {
