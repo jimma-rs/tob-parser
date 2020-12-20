@@ -26,6 +26,8 @@ const getLogData = (logs, playerName) => {
     let parsedLogs = parseLogs(logs);
     let myDeaths = 0;
     let otherDeaths = 0;
+    let myLootDrops = 0;
+    let totalLootDrops = 0;
 
     const playerNums = [1, 2, 3, 4, 5];
     let playerDeaths = {};
@@ -34,16 +36,20 @@ const getLogData = (logs, playerName) => {
     let players = [];
 
     const calcDeaths = (playerNumber, row) => {
+        if (row.specialLootReceiver === 'RekkBrad') {
+            myLootDrops++;
+        }
         var tempPlayers = _.clone(playerNums);
         let otherPlayers = _.remove(tempPlayers, (x) => {
             return x !== playerNumber
         });
+
         myDeaths += row['tobPlayer' + playerNumber + 'DeathCount'];
         otherPlayers.forEach(o => {
             let currentPlayer = row['tobPlayer' + o];
             if (currentPlayer) {
                 // Count loot drops
-                if(row.specialLootReceiver === currentPlayer) {
+                if (row.specialLootReceiver === currentPlayer) {
                     (playerLootDrops[currentPlayer]) ? playerLootDrops[currentPlayer]++ : playerLootDrops[currentPlayer] = 1;
                 }
 
@@ -51,16 +57,24 @@ const getLogData = (logs, playerName) => {
                 (playerDeaths[currentPlayer]) ? playerDeaths[currentPlayer] += row['tobPlayer' + o + 'DeathCount'] : playerDeaths[currentPlayer] = 1;
 
                 // Count total raids
-                (playerRaids[currentPlayer])  ? playerRaids[currentPlayer]++ : playerRaids[currentPlayer] = 1;
+                (playerRaids[currentPlayer]) ? playerRaids[currentPlayer]++ : playerRaids[currentPlayer] = 1;
             }
             otherDeaths += row['tobPlayer' + o + 'DeathCount']
         })
     };
 
-    parsedLogs.forEach(log => {
+    parsedLogs.forEach(row => {
+        if(row.specialLootReceiver) {
+            if (row.specialLootReceiver === playerName) {
+                myLootDrops++;
+            }
+            totalLootDrops++;
+        }
+
+
         playerNums.forEach(p => {
-            if (log['tobPlayer' + p].toLowerCase() === playerName.toLowerCase()) {
-                calcDeaths(p, log)
+            if (row['tobPlayer' + p].toLowerCase() === playerName.toLowerCase()) {
+                calcDeaths(p, row)
             }
         });
     });
@@ -74,12 +88,18 @@ const getLogData = (logs, playerName) => {
             averageDeaths: (playerDeaths[key] / playerRaids[key]).toFixed(2)
         })
     }
+
+    console.log(myLootDrops)
     return {
+        summary: {
+            totalRaids: parsedLogs.length,
+            deaths: myDeaths,
+            averageDeaths: (myDeaths / parsedLogs.length).toFixed(2),
+            otherPlayerDeaths: otherDeaths,
+            myLootDrops: myLootDrops,
+            totalLootDrops: totalLootDrops
+        },
         loot: getMyDrops(parsedLogs, playerName),
-        totalRaids: parsedLogs.length,
-        deaths: myDeaths,
-        averageDeaths: (myDeaths / parsedLogs.length).toFixed(2),
-        otherPlayerDeaths: otherDeaths,
         otherPlayers: players
     }
 };

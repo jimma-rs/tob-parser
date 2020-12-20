@@ -74,7 +74,7 @@ class RaidDataDisplay extends React.Component {
                         </Button>
                     </GridColumn>
                 </GridRow>
-                {this.state.parsedData && <Summary summary={this.state.parsedData}/>}
+                {this.state.parsedData && <Summary summary={this.state.parsedData.summary}/>}
             </Grid>
             <Grid centered columns={16}>
                 <GridRow>
