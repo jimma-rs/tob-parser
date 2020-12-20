@@ -2,6 +2,7 @@ var _ = require('lodash');
 
 const parseLogs = (logs) => {
     logs = logs.replace(/ /g, ' ');
+    logs = logs.replace(/[^\x00-\x7F]/g, "");
     logs = logs.trim();
     logs = logs.replace(/\n/g, ',\n');
     logs = '[' + logs + ']';
