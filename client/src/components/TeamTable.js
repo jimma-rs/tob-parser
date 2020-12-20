@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Icon, Table} from "semantic-ui-react";
 import _ from "lodash";
 
-class ResultTable extends Component {
+class TeamTable extends Component {
 
     constructor(props) {
         super(props);
@@ -12,7 +12,8 @@ class ResultTable extends Component {
                 name: 'ascending',
                 total: 'descending',
                 deaths: 'ascending',
-                averageDeaths: 'ascending'
+                averageDeaths: 'ascending',
+                lootDrops: 'ascending'
             }
         };
     }
@@ -69,17 +70,24 @@ class ResultTable extends Component {
                         >
                             <Icon name="bomb"/>Average Deaths
                         </Table.HeaderCell>
+                        <Table.HeaderCell
+                            sorted={column === 'lootDrops' ? direction.lootDrops : null}
+                            onClick={() => this.toggleDirection('lootDrops')}
+                        >
+                            <Icon name="gift"/>Loot Drops
+                        </Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
                 <Table.Body styles={{'max-height': '85vh'}}>
                     {_.map(
                         this.getSortedRanking(this.props.tableData, column, direction[column]),
-                        ({name, total, deaths, averageDeaths}) => (
+                        ({name, total, deaths, averageDeaths, lootDrops}) => (
                             <Table.Row key={name}>
                                 <Table.Cell>{name}</Table.Cell>
                                 <Table.Cell>{total}</Table.Cell>
                                 <Table.Cell>{deaths}</Table.Cell>
                                 <Table.Cell>{averageDeaths}</Table.Cell>
+                                <Table.Cell>{lootDrops}</Table.Cell>
                             </Table.Row>
                         )
                     )}
@@ -89,4 +97,4 @@ class ResultTable extends Component {
     }
 }
 
-export default ResultTable
+export default TeamTable

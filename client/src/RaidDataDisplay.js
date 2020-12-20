@@ -2,7 +2,7 @@ import React from 'react';
 import {InputFile} from 'semantic-ui-react-input-file'
 import {getLogData} from "./util/parse-logs";
 import {Button, Grid, GridColumn, GridRow, Header, Icon, Input, Tab} from "semantic-ui-react";
-import ResultTable from "./components/ResultTable";
+import TeamTable from "./components/TeamTable";
 import Summary from "./components/Summary";
 import LootTable from "./components/LootTable";
 
@@ -41,7 +41,7 @@ class RaidDataDisplay extends React.Component {
     render() {
         let buttonProps = {disabled: !this.state.rsn};
         const panes = [
-            {menuItem: 'Teammates', render: () => <ResultTable tableData={this.state.parsedData.otherPlayers}/>},
+            {menuItem: 'Teammates', render: () => <TeamTable tableData={this.state.parsedData.otherPlayers}/>},
             {menuItem: 'Loot', render: () => <LootTable tableData={this.state.parsedData.loot} rsn={this.state.rsn}/>},
         ]
 
@@ -50,7 +50,7 @@ class RaidDataDisplay extends React.Component {
                 <Icon name='cogs' circular/>
                 <Header.Content>ToB Parser</Header.Content>
             </Header>
-            <Grid centered columns={2} ui grid>
+            <Grid centered columns={2}>
                 <GridRow><small><i>Select your raid tracker log file found at: C:\Users\[WINDOWS
                     USER]\.runelite\raid-data tracker\[RS LOGIN]\tob\raid_tracker_data.log</i></small></GridRow>
                 <GridRow>
@@ -63,7 +63,7 @@ class RaidDataDisplay extends React.Component {
                             input={{
                                 id: 'input-control-id',
                                 accept: ".log",
-                                onChange: this.uploadFile.bind(this)
+                                onChange: this.uploadFile
                             }}
                         />
                         <Button animated='vertical' onClick={this.resetState}>
