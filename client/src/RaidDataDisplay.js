@@ -1,12 +1,12 @@
 import React from 'react';
 import {InputFile} from 'semantic-ui-react-input-file'
-import {getLogData} from "./parse-logs";
+import {getLogData} from "./util/parse-logs";
 import {Button, Grid, GridColumn, GridRow, Header, Icon, Input, Tab} from "semantic-ui-react";
-import ResultTable from "./ResultTable";
-import Summary from "./Summary";
-import LootTable from "./LootTable";
+import ResultTable from "./components/ResultTable";
+import Summary from "./components/Summary";
+import LootTable from "./components/LootTable";
 
-class FileSelect extends React.Component {
+class RaidDataDisplay extends React.Component {
     constructor(props) {
         super(props);
         this.state = {selectedFileName: 'None', rsn: ''};
@@ -87,4 +87,4 @@ class FileSelect extends React.Component {
     }
 }
 
-export default FileSelect
+export default RaidDataDisplay

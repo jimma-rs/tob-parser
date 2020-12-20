@@ -1,12 +1,6 @@
 var fs = require('fs');
+const parseLogs = require('../client/src/util/parse-logs');
 
-const parseLogs = require('../client/src/parse-logs');
-
-const saySomething = (req, res, next) => {
-  res.status(200).json({
-    body: 'Hello from the server!'
-  });
-};
 onChangeHandler=event=>{
   this.setState({
     selectedFile: event.target.files[0],

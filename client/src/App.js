@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
-import FileSelect from "./FileSelect";
+import RaidDataDisplay from "./RaidDataDisplay";
 import $ from 'jquery';
 
 window.jQuery = $;
@@ -11,7 +11,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <FileSelect/>
+        <RaidDataDisplay/>
       </div>
     );
   }
