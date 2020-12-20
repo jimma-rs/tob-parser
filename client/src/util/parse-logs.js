@@ -37,7 +37,7 @@ const getLogData = (logs, playerName) => {
     let players = [];
 
     const calcDeaths = (playerNumber, row) => {
-        if (row.specialLootReceiver === 'RekkBrad') {
+        if (row.specialLootReceiver === playerName) {
             myLootDrops++;
         }
         var tempPlayers = _.clone(playerNums);
