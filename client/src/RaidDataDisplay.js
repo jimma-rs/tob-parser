@@ -1,10 +1,11 @@
 import React from 'react';
 import {InputFile} from 'semantic-ui-react-input-file'
 import {getLogData} from "./util/parse-logs";
-import {Button, Grid, GridColumn, GridRow, Header, Icon, Input, Tab} from "semantic-ui-react";
+import {Button, Grid, GridColumn, GridRow, Header, Icon, Input, Segment, Tab} from "semantic-ui-react";
 import TeamTable from "./components/TeamTable";
 import Summary from "./components/Summary";
 import LootTable from "./components/LootTable";
+import './App.css';
 
 class RaidDataDisplay extends React.Component {
     constructor(props) {
@@ -45,12 +46,13 @@ class RaidDataDisplay extends React.Component {
             {menuItem: 'Loot', render: () => <LootTable tableData={this.state.parsedData.loot} rsn={this.state.rsn}/>},
         ]
 
-        return (<>
+        return (<div className='page-container'>
+            <div className='content-wrapper'>
             <Header as='h2' icon textAlign='center'>
                 <Icon name='cogs' circular/>
                 <Header.Content>ToB Parser</Header.Content>
             </Header>
-            <Grid centered columns={2}>
+            <Grid centered columns={2} >
                 <GridRow><small><i>Select your raid tracker log file found at: C:\Users\[WINDOWS
                     USER]\.runelite\raid-data tracker\[RS LOGIN]\tob\raid_tracker_data.log</i></small></GridRow>
                 <GridRow>
@@ -83,7 +85,11 @@ class RaidDataDisplay extends React.Component {
                     </GridColumn>
                 </GridRow>
             </Grid>
-        </>)
+            </div>
+            <Segment className="Footer">
+                <small><i>This is an open source project. Repository found at: <a href="https://github.com/jimma-rs/tob-parser">https://github.com/jimma-rs/tob-parser </a></i></small>
+            </Segment>
+        </div>)
     }
 }
 
