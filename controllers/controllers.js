@@ -16,5 +16,4 @@ const uploadLogs = (req, res) => {
   })
 };
 
-module.exports.saySomething = saySomething;
 module.exports.uploadLogs = uploadLogs;
